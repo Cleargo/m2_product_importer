@@ -15,9 +15,11 @@
     "require": {
         "composer/installers": "~1.0"
     },
-	 "extra": {
+    "extra": {
+        "magento-force": "override",
         "installer-paths": {
-            "./": ["cleargo/m2_product_importer"]
+            "app/code/Cleargo/Module": ["cleargo/m2_product_importer"]
         }
     }
 }
+
