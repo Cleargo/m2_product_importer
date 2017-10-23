@@ -1,0 +1,13 @@
+{
+    "name": "cleargo/m2_product_importer",
+    "description": "Product import csv converter for Magento 2",
+    "type": "library",
+    "authors": [
+        {
+            "name": "Leo Leung",
+            "email": "leo@cleargo.com"
+        }
+    ],
+    "minimum-stability": "dev",
+    "require": {}
+}
