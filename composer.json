@@ -1,4 +1,7 @@
 {
+    "config": {
+        "vendor-dir": "./"
+    },
     "name": "cleargo/m2_product_importer",
     "description": "Product import csv converter for Magento 2",
     "type": "library",
@@ -11,10 +14,5 @@
     "minimum-stability": "dev",
     "require": {
         "composer/installers": "~1.0"
-    },
-	 "extra": {
-        "installer-paths": {
-            "./": ["cleargo/m2_product_importer"]
-        }
     }
 }
