@@ -10,9 +10,9 @@
     ],
     "minimum-stability": "dev",
     "require": {},
-	"extra": {
-     "installer-paths": {
-      "app/code/Cleargo/": ["vendor/cleargo"]
-     }
-   }
+	 "extra": {
+        "installer-paths": {
+            "app/code/cleargo": ["vendor/cleargo"]
+        }
+    }
 }
