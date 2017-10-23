@@ -1,0 +1,21 @@
+{
+    "name": "cleargo/module-saviorofimportdog",
+    "description": "Convert csv to magento product csv",
+    "license": "proprietary",
+    "authors": [
+        {
+            "name": "Mage2Gen",
+            "email": "info@mage2gen.com"
+        }
+    ],
+    "minimum-stability": "dev",
+    "require": {},
+    "autoload": {
+        "psr-4": {
+            "Cleargo\\SaviorOfImportDog\\": ""
+        },
+        "files": [
+            "registration.php"
+        ]
+    }
+}
