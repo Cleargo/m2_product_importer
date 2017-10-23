@@ -13,6 +13,7 @@
     ],
     "minimum-stability": "dev",
     "require": {
+        "magento/magento-composer-installer": "*",
         "composer/installers": "~1.0"
     },
     "extra": {
