@@ -9,10 +9,12 @@
         }
     ],
     "minimum-stability": "dev",
-    "require": {},
+    "require": {
+        "composer/installers": "~1.0"
+    },
 	 "extra": {
         "installer-paths": {
-            "../": ["cleargo/m2_product_importer"]
+            "./": ["cleargo/m2_product_importer"]
         }
     }
 }
