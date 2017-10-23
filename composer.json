@@ -14,5 +14,5 @@
      "installer-paths": {
       "app/code/Cleargo/": ["vendor/cleargo"]
      }
-   },
+   }
 }
