@@ -19,7 +19,6 @@ class Index extends \Magento\Framework\View\Element\Template
         parent::__construct($context, $data);
         $this->_objectManager = \Magento\Framework\App\ObjectManager::getInstance();
         $this->_storeManager = $storeManager;
-        $this->_helper=$this->_objectManager->get('Cleargo\PickupAtStore\Helper\Data');
         $resource = $this->_objectManager->get('Magento\Framework\App\ResourceConnection');
         $this->connection = $resource->getConnection();
     }
