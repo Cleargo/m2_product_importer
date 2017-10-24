@@ -19,7 +19,7 @@
     "extra": {
         "magento-force": "override",
         "installer-paths": {
-            "./": ["cleargo/m2_product_importer"]
+            "app/code": ["cleargo/m2_product_importer"]
         }
     }
 }
