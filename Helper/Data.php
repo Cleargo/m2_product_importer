@@ -313,7 +313,11 @@ class Data extends AbstractHelper
                 while($index=$this->findInputIndex($attributeCode.$attributeIndex++)!==false){
                     $attributeArray[]=$value[$index];
                 }
-                $array[$this->findOutputIndex($attributeCode)] = implode(',',$attributeArray);
+                if($attributeInfo->getFrontendInput()=='select'){
+                    $array[$this->findOutputIndex($attributeCode)] = $value[$this->findInputIndex($attributeCode)];
+                }else{
+                    $array[$this->findOutputIndex($attributeCode)] = implode(',',$attributeArray);
+                }
             }else {
                 if($this->findInputIndex($attributeCode)!==false) {
                     if (isset($value[$this->findInputIndex($attributeCode)])) {
