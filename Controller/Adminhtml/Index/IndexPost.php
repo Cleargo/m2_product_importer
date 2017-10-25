@@ -50,6 +50,7 @@ class IndexPost extends \Magento\Backend\App\Action
             $array[] = str_getcsv($line, ',', '"');
         }
         unset($param['form_key']);
+        unset($param['key']);
         $this->helper->setConfig($param);
         $result = $this->helper->processCSV($array);
         $fileName = 'converted_csv_' . date('dmYHis').'.csv';
