@@ -117,6 +117,7 @@ class Data extends AbstractHelper
             $configProduct[$this->findOutputIndex('sku')]=$key2;
             $configProduct[$this->findOutputIndex('product_type')]='configurable';
             $configProduct[$this->findOutputIndex('configurable_variations')]=$variationString[$key2];
+            $configProduct[$this->findOutputIndex('visibility')]='Catalog, Search';
             $this->configProduct[]=$configProduct;
         }
         array_unshift($resultArray ,$this->outputColumn);
@@ -178,7 +179,7 @@ class Data extends AbstractHelper
         foreach ($this->config as $key2=>$value2){
             $array[$this->findOutputIndex($key2)]=$value2;
         }
-        $array[$this->findOutputIndex('product_websites')]='base';
+        $array[$this->findOutputIndex('product_websites')]=$this->getConfig()['website_id'];
         $array[$this->findOutputIndex('created_at')]='';
         $array[$this->findOutputIndex('updated_at')]='';
         $array[$this->findOutputIndex('custom_design')]='';
