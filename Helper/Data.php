@@ -102,7 +102,7 @@ class Data extends AbstractHelper
                     $string .= 'sku=' . $value4[$this->findInputIndex('sku')];
                     foreach ($configurableAttribute as $key3 => $value3) {
                         $temp[$value3] = $value4[$this->findInputIndex($value3)];
-                        $string .=' , '.$value3 . '=' . $value4[$this->findInputIndex($value3)] ;
+                        $string .=','.$value3 . '=' . $value4[$this->findInputIndex($value3)] ;
                     }
                     $variation[] = $temp;
                     $variationTemp[]=$string;
@@ -118,6 +118,7 @@ class Data extends AbstractHelper
             $configProduct[$this->findOutputIndex('product_type')]='configurable';
             $configProduct[$this->findOutputIndex('configurable_variations')]=$variationString[$key2];
             $configProduct[$this->findOutputIndex('visibility')]='Catalog, Search';
+            $configProduct[$this->findOutputIndex('store_view_code')]='';
             $this->configProduct[]=$configProduct;
         }
         array_unshift($resultArray ,$this->outputColumn);
@@ -316,7 +317,7 @@ class Data extends AbstractHelper
                 }
                 if($attributeInfo->getFrontendInput()=='select'){
                     if($this->findInputIndex($attributeCode)>0){
-                        $array[$this->findOutputIndex($attributeCode)] = $value[$this->findInputIndex($attributeCode)];
+                        $array[$this->findOutputIndex($attributeCode)] = trim($value[$this->findInputIndex($attributeCode)]);
                     }else{
                         $array[$this->findOutputIndex($attributeCode)] = '';
                     }
@@ -326,7 +327,7 @@ class Data extends AbstractHelper
             }else {
                 if($this->findInputIndex($attributeCode)!==false) {
                     if (isset($value[$this->findInputIndex($attributeCode)])) {
-                        $array[$this->findOutputIndex($attributeCode)] = $value[$this->findInputIndex($attributeCode)];
+                        $array[$this->findOutputIndex($attributeCode)] = trim($value[$this->findInputIndex($attributeCode)]);
                     } else {
                         $array[$this->findOutputIndex($attributeCode)] = '';
                     }
