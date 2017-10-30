@@ -29,6 +29,10 @@ class Index extends \Magento\Backend\App\Action
      */
     public function execute()
     {
+        foreach( glob('converted_csv_*') as $file )
+        {
+            unlink($file);
+        }
         return $this->resultPageFactory->create();
     }
 }
