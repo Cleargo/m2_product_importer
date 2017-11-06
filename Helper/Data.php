@@ -279,11 +279,11 @@ class Data extends AbstractHelper
         //get associated_skus associated_skus
         $associatedSkuLabelIndex=1;
         $associatedSkuLabelArray=[];
-        while(($index=$this->findInputIndex('associated_skus'.$associatedSkuLabelIndex++))!==false){
-            if(!empty($value[$index])) {
-                $associatedSkuLabelArray[]=$value[$index];
-            }
-        }
+//        while(($index=$this->findInputIndex('associated_skus'.$associatedSkuLabelIndex++))!==false){
+//            if(!empty($value[$index])) {
+//                $associatedSkuLabelArray[]=$value[$index];
+//            }
+//        }
         $array[$this->findOutputIndex('associated_skus')]=implode(',',$associatedSkuLabelArray);
         //get custom attribute depend attribtue set
         //get attribute set id
