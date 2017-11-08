@@ -72,7 +72,7 @@ class Data extends AbstractHelper
         $this->configurableChild=[];
         parent::__construct($context);
     }
-    
+
     public function processCSV($csvArray){
         $this->inputColumn=$csvArray[0];
         //result csv header
@@ -80,7 +80,6 @@ class Data extends AbstractHelper
         //store configurable child
         $variationString=[];
         foreach ($csvArray as $key=>$value){
-            $array=[];
             if($key==0){
                 continue;
             }
@@ -88,35 +87,53 @@ class Data extends AbstractHelper
                 continue;
             }
             $array=$this->createProductArray($value);
+            $configurableAttribute=explode(',',$csvArray[$key][$this->findInputIndex('configurable_options')]);
             //get configurable_options
-            $configurableAttribute=explode(',',$value[$this->findInputIndex('configurable_options')]);
+//            echo $value[$this->findInputIndex('configurable_options')].'<br />';
             //process configurable product configurable_variations eg. sku=test_treat1-30mins HK$ 780-1,treatment_type=Treatment Whole Body: 30mins HK$ 780|sku=test_treat1-45mins HK$ 1,170-1,treatment_type=Treatment Whole Body: 45mins HK$ 1,170|sku=test_treat1-60mins HK$ 1,500-1,treatment_type=Treatment Whole Body: 60mins HK$ 1,500
-            $variation=[];
-            foreach ($this->configurableChild as $key2=>$value2){
-                $variationString[$key2]=array();
-                $variationTemp=array();
-                foreach($value2 as $key4=>$value4) {
-                    $string = '';
-                    $temp = array();
-                    $temp['sku'] = $value4[$this->findInputIndex('sku')];
-                    $string .= 'sku=' . $value4[$this->findInputIndex('sku')];
-                    foreach ($configurableAttribute as $key3 => $value3) {
-                        $temp[$value3] = $value4[$this->findInputIndex($value3)];
-                        $string .=','.$value3 . '=' . $value4[$this->findInputIndex($value3)] ;
-                    }
-                    $variation[] = $temp;
-                    $variationTemp[]=$string;
-                }
-                $variationString[$key2]=implode(' | ',$variationTemp);
-            }
+//            foreach ($this->configurableChild as $key2=>$value2){
+//                $variationString[$key2]='';
+//                foreach($value2 as $key4=>$value4) {
+//                    $string = '';
+//                    $temp = array();
+//                    $temp['sku'] = $value4[$this->findInputIndex('sku')];
+//                    $string .= 'sku=' . $value4[$this->findInputIndex('sku')];
+//                    foreach ($configurableAttribute as $key3 => $value3) {
+//                        $temp[$value3] = $value4[$this->findInputIndex($value3)];
+//                        $string .=','.$value3 . '=' . $value4[$this->findInputIndex($value3)] ;
+//                    }
+//                    $variation[] = $temp;
+//                    $variationTemp[]=$string;
+//                }
+////                if($key2=='CZM173C25489'){
+////                    var_dump($configurableAttribute);
+////                }
+//                $variationString[$key2]=implode(' | ',$variationTemp);
+//            }
+//            $variation=[];
             $resultArray[]=$array;
         }
+//        echo json_encode($variationString['CZM173C25489']);
+//        exit;
+//        echo json_encode($variationString);
+//        exit;
         //create configurable product
         foreach ($this->configurableChild as $key2=>$value2){
-            $configProduct=$this->createProductArray($value2[0]);
+            $configProduct=$this->createProductArray($value2[0],true);
             $configProduct[$this->findOutputIndex('sku')]=$key2;
             $configProduct[$this->findOutputIndex('product_type')]='configurable';
-            $configProduct[$this->findOutputIndex('configurable_variations')]=$variationString[$key2];
+            $configurableAttribute=explode(',',$value2[0][$this->findInputIndex('configurable_options')]);
+            $variationTemp=array();
+            foreach($value2 as $key4=>$value4) {
+                $string='';
+                $string .= 'sku=' . $value4[$this->findInputIndex('sku')];
+                foreach ($configurableAttribute as $key3 => $value3) {
+                    $temp[$value3] = $value4[$this->findInputIndex($value3)];
+                    $string .= ',' . $value3 . '=' . $value4[$this->findInputIndex($value3)];
+                }
+                $variationTemp[]=$string;
+            }
+            $configProduct[$this->findOutputIndex('configurable_variations')]=implode(' | ',$variationTemp);
             $configProduct[$this->findOutputIndex('visibility')]='Catalog, Search';
             $configProduct[$this->findOutputIndex('store_view_code')]='';
             $this->configProduct[]=$configProduct;
@@ -135,7 +152,7 @@ class Data extends AbstractHelper
         return array_search(trim($name),$this->outputColumn);
     }
 
-    public function createProductArray($value){
+    public function createProductArray($value,$noAdd=false){
         $array=[];
         $array[$this->findOutputIndex('sku')]=$value[$this->findInputIndex('sku')];//sku
         $array[$this->findOutputIndex('store_view_code')]=$value[$this->findInputIndex('store_view_code')];
@@ -204,12 +221,15 @@ class Data extends AbstractHelper
         //store parent sku and sku
         $parentSku=$this->findInputIndex('parent_sku');
         $sku=$this->findInputIndex('sku');
-        if(!empty($value[$parentSku])){
-            if(isset($this->configurableChild[$value[$parentSku]])&&is_array($this->configurableChild[$value[$parentSku]])){
-            }else {
-                $this->configurableChild[$value[$parentSku]] = array();
+        if($noAdd==false) {
+            if (!empty($value[$parentSku])) {
+                if (isset($this->configurableChild[$value[$parentSku]]) && is_array($this->configurableChild[$value[$parentSku]])) {
+                } else {
+                    $this->configurableChild[$value[$parentSku]] = array();
+                }
+                $parent_sku = $value[$parentSku];
+                $this->configurableChild[$parent_sku][] = $value;
             }
-            $this->configurableChild[$value[$parentSku]][]=$value;
         }
         //get categories categories
         $categoryIndex=1;
@@ -279,11 +299,11 @@ class Data extends AbstractHelper
         //get associated_skus associated_skus
         $associatedSkuLabelIndex=1;
         $associatedSkuLabelArray=[];
-//        while(($index=$this->findInputIndex('associated_skus'.$associatedSkuLabelIndex++))!==false){
-//            if(!empty($value[$index])) {
-//                $associatedSkuLabelArray[]=$value[$index];
-//            }
-//        }
+        while(($index=$this->findInputIndex('associated_skus'.$associatedSkuLabelIndex++))!==false){
+            if(!empty($value[$index])) {
+                $associatedSkuLabelArray[]=$value[$index];
+            }
+        }
         $array[$this->findOutputIndex('associated_skus')]=implode(',',$associatedSkuLabelArray);
         //get custom attribute depend attribtue set
         //get attribute set id
