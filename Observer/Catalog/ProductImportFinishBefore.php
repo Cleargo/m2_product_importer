@@ -1,12 +1,11 @@
 <?php
 
-
-namespace Cleargo\RebuildCategoryAfterImport\Observer\Catalog;
+namespace Cleargo\SaviorOfImportDog\Observer\Catalog;
 
 class ProductImportFinishBefore implements \Magento\Framework\Event\ObserverInterface
 {
 
-    
+
     /**
      * Execute observer
      *
@@ -21,7 +20,7 @@ class ProductImportFinishBefore implements \Magento\Framework\Event\ObserverInte
         if($helper->getAutoAssign()!=1){
             return;
         }
-        $categoryBuilder=$objectManager->get('\Magento\VisualMerchandiser\Model\Category\Builder');
+        $categoryBuilder=$objectManager->get('Magento\VisualMerchandiser\Model\Category\Builder');
         $categoryRepos=$objectManager->get('Magento\Catalog\Api\CategoryRepositoryInterface');
         $resource = $objectManager->get('Magento\Framework\App\ResourceConnection');
         $connection = $resource->getConnection();
@@ -29,7 +28,8 @@ class ProductImportFinishBefore implements \Magento\Framework\Event\ObserverInte
         $query->execute();
         $rules=$query->fetchAll();
         foreach($rules as $key=>$value) {
-            $category = $categoryRepos->get($value['category_id']);
+            $category = $categoryRepos->get($value['category_id'],4);
+            $category->save();
             $categoryBuilder->rebuildCategory($category);
         }
         //Your observer code
