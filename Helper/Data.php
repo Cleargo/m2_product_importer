@@ -44,6 +44,8 @@ class Data extends AbstractHelper
     protected $categoryRepository;
 
     protected $config;
+    
+    protected $scopeConfig;
     /**
      * @param Magento\Framework\App\Helper\Context $context
      * @param Magento\Framework\ObjectManagerInterface $objectManager
@@ -70,7 +72,12 @@ class Data extends AbstractHelper
         $this->attributeSetCode=[];
         $this->configProduct=[];
         $this->configurableChild=[];
+        $this->scopeConfig=$objectManager->get('Magento\Framework\App\Config\ScopeConfigInterface');
         parent::__construct($context);
+    }
+    
+    public function getAutoAssign(){
+        return $this->scopeConfig->getValue('import/import/assign_category',\Magento\Store\Model\ScopeInterface::SCOPE_STORE);
     }
 
     public function processCSV($csvArray){

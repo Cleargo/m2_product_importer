@@ -17,6 +17,10 @@ class ProductImportFinishBefore implements \Magento\Framework\Event\ObserverInte
         \Magento\Framework\Event\Observer $observer
     ) {
         $objectManager = \Magento\Framework\App\ObjectManager::getInstance(); // Instance of object manager
+        $helper=$objectManager->get('Cleargo\SaviorOfImportDog\Helper\Data');
+        if($helper->getAutoAssign()!=1){
+            return;
+        }
         $categoryBuilder=$objectManager->get('\Magento\VisualMerchandiser\Model\Category\Builder');
         $categoryRepos=$objectManager->get('Magento\Catalog\Api\CategoryRepositoryInterface');
         $resource = $objectManager->get('Magento\Framework\App\ResourceConnection');
