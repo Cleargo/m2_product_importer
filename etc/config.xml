@@ -4,6 +4,7 @@
 		<import>
 			<import>
 				<fix>1</fix>
+				<assign_category>1</assign_category>
 			</import>
 		</import>
 	</default>
