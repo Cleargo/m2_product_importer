@@ -181,6 +181,7 @@ class Data extends AbstractHelper
         }else{
             $array[$this->findOutputIndex('url_key')]=$value[$this->findInputIndex('url_key')];
         }
+        $array[$this->findOutputIndex('url_key')]=strtolower($array[$this->findOutputIndex('url_key')]);
         $array[$this->findOutputIndex('meta_title')]=$value[$this->findInputIndex('meta_title')];
         $array[$this->findOutputIndex('meta_keywords')]=$value[$this->findInputIndex('meta_keywords')];
         $array[$this->findOutputIndex('meta_description')]=$value[$this->findInputIndex('meta_description')];
