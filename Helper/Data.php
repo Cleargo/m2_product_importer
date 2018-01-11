@@ -143,7 +143,7 @@ class Data extends AbstractHelper
             $configProduct[$this->findOutputIndex('configurable_variations')]=implode(' | ',$variationTemp);
             $configProduct[$this->findOutputIndex('visibility')]='Catalog, Search';
             $configProduct[$this->findOutputIndex('store_view_code')]='';
-            $configProduct[$this->findOutputIndex('url_key')].='-configurable';
+            $configProduct[$this->findOutputIndex('url_key')]=str_replace(' ', '-', trim($value2[0][$this->findInputIndex('name')]) . '-' . trim($key2));
             $this->configProduct[]=$configProduct;
         }
         array_unshift($resultArray ,$this->outputColumn);
