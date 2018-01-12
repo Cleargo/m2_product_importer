@@ -341,7 +341,7 @@ class Data extends AbstractHelper
             if(in_array($attributeInfo->getFrontendInput(),['select','multiselect'])){
                 $attributeIndex=1;
                 $attributeArray=[];
-                while($index=$this->findInputIndex($attributeCode.$attributeIndex++)!==false){
+                while(($index=$this->findInputIndex($attributeCode.$attributeIndex++))!==false){
                     $attributeArray[]=$value[$index];
                 }
                 if($attributeInfo->getFrontendInput()=='select'){
