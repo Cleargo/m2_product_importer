@@ -342,7 +342,9 @@ class Data extends AbstractHelper
                 $attributeIndex=1;
                 $attributeArray=[];
                 while(($index=$this->findInputIndex($attributeCode.$attributeIndex++))!==false){
-                    $attributeArray[]=$value[$index];
+                    if(!empty(trim($value[$index]))) {
+                        $attributeArray[] = $value[$index];
+                    }
                 }
                 if($attributeInfo->getFrontendInput()=='select'){
                     if($this->findInputIndex($attributeCode)>0){
