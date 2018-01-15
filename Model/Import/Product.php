@@ -61,4 +61,18 @@ class Product extends \Magento\CatalogImportExport\Model\Import\Product
 
         return [$images, $labels];
     }
+    public function parseMultiselectValues($values, $delimiter = self::PSEUDO_MULTI_LINE_SEPARATOR)
+    {
+        $delimiter=',';
+//        if (empty($this->_parameters[Import::FIELDS_ENCLOSURE])) {
+        //return comma sperate array directly
+            return explode($delimiter, strtolower($values));
+//        }
+//        if (preg_match_all('~"((?:[^"]|"")*)"~', $values, $matches)) {
+//            return $values = array_map(function ($value) {
+//                return str_replace('""', '"', $value);
+//            }, $matches[1]);
+//        }
+//        return [$values];
+    }
 }
