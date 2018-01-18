@@ -54,12 +54,12 @@ class IndexPost extends \Magento\Backend\App\Action
         $this->helper->setConfig($param);
         $result = $this->helper->processCSV($array);
         $fileName = 'converted_csv_' . date('dmYHis').'.csv';
-        $fp = fopen('file.csv', 'w');
+        $fp = fopen(__DIR__.'/'.'file.csv', 'w');
         foreach ($result as $fields) {
             fputcsv($fp, $fields);
         }
-        $csvString=file_get_contents('file.csv');
-        unlink('file.csv');
-        return $this->fileFactory->create($fileName,$csvString);
+        $csvString=file_get_contents(__DIR__.'/'.'file.csv');
+        unlink(__DIR__.'/'.'file.csv');
+        return $this->fileFactory->create($fileName,$csvString,\Magento\Framework\App\Filesystem\DirectoryList::MEDIA);
     }
 }
