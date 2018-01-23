@@ -3,4 +3,5 @@
     <preference for="Magento\CatalogImportExport\Model\Import\Product" type="Cleargo\SaviorOfImportDog\Model\Import\Product" />
     <preference for="Magento\ConfigurableImportExport\Model\Import\Product\Type\Configurable" type="Cleargo\SaviorOfImportDog\Model\Import\Product\Type\Configurable" />
     <preference for="Magento\ImportExport\Model\Import\ErrorProcessing\ProcessingErrorAggregator" type="Cleargo\SaviorOfImportDog\Model\Import\ErrorProcessing\ProcessingErrorAggregator" />
+    <preference for="Magento\CatalogImportExport\Model\Import\Product\Validator\Media" type="Cleargo\SaviorOfImportDog\Model\Import\Product\Validator\Media" />
 </config>
