@@ -75,4 +75,17 @@ class Product extends \Magento\CatalogImportExport\Model\Import\Product
 //        }
 //        return [$values];
     }
+    protected function isNeedToValidateUrlKey($rowData)
+    {
+        //add tmp for TC file @by leo 20180306
+        //when there is store view code, but not set url_key, dont check the duplicate url which has magento bug
+        if (empty($rowData[self::URL_KEY]) && isset($rowData[self::COL_STORE_VIEW_CODE])) {
+            return false;
+        }
+
+        return (!empty($rowData[self::URL_KEY]) || !empty($rowData[self::COL_NAME]))
+        && (empty($rowData[self::COL_VISIBILITY])
+            || $rowData[self::COL_VISIBILITY]
+            !== (string)Visibility::getOptionArray()[Visibility::VISIBILITY_NOT_VISIBLE]);
+    }
 }
